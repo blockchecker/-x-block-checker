@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ブロックチェッカー</title>
+</head>
+<body>
+
+<h1>ブロックチェッカー</h1>
+
+<form id="form">
+  <input type="text" id="name" placeholder="名前を入力" required>
+  <button type="submit">チェック</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById("form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const count = Math.floor(Math.random()*20)+1;
+
+  document.getElementById("result").innerText =
+    name + " さんは " + count + " 人にブロックされています！";
+
+  fetch("https://empty-morning-5199.yuuga-y-0912.workers.dev", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: name,
+      result: count + "人"
+    })
+  });
+});
+</script>
+
+</body>
+</html>
